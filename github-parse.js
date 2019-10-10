@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   let message = ''
 
   // If action equal to assigne
-  if (info && info.action && info.action === 'assigned') {
+  if (info && info.pull_request && info.action && info.action === 'assigned') {
     const pull = info.pull_request
 
     // Get all assigned users and detect matrix ID
