@@ -6,9 +6,31 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const parseGithub = require('./github-parse')
+const notificationTest = require('./notification-test')
+
+const sendUpdateToMatrix = (message) => {
+  // https://matrix.org/docs/guides/client-server-api
+  // Send the message to the specified Matrix room
+  request.post(`${process.env.MATRIX_URL}_matrix/client/r0/rooms/%${process.env.MATRIX_ROOM_ID}/send/m.room.message?access_token=${process.env.ACCESS_TOKEN}`,
+    {
+      body: message,
+      msgtype: 'm.text',
+    }
+  )
+}
 
 const getGithubWebhook = async (req, res) => {
+  // Parse the github webhook
   const message = await parseGithub(req, res)
+
+  // If action is 'assigned'
+  if (message.length) {
+    // Test the webhook by email
+    notificationTest(message)
+    // Send notification
+    sendUpdateToMatrix(message)
+  }
+
   res.json({ message: 'ok' })
 }
 
