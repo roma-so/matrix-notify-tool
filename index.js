@@ -5,7 +5,12 @@ const path = require('path')
 
 const PORT = process.env.PORT || 5000
 
-const getGithubWebhook = async (req, res) => {}
+const parseGithub = require('./github-parse')
+
+const getGithubWebhook = async (req, res) => {
+  const message = await parseGithub(req, res)
+  res.json({ message: 'ok' })
+}
 
 // Run express and output last commits
 express()
