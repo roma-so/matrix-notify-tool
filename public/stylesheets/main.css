@@ -1,0 +1,22 @@
+.panel {
+  margin-top: 20vh;
+}
+
+.commit{
+  margin: 0 0 20px;
+}
+.commit--paragraph{
+  margin-bottom: 5px;
+}
+.commit--paragraph-link{
+  font-weight: 600;
+}
+
+.commit--paragraph-comment,
+.commit--paragraph-comment a{
+  color: #222;
+}
+
+.commit--paragraph-comment a{
+  text-decoration: underline;
+}
